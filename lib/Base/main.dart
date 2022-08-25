@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:quick_cart/Views/login.dart';
-import 'package:quick_cart/Views/signUp.dart';
-import 'package:quick_cart/Views/splash.dart';
+import 'package:flutter/services.dart';
+import 'package:quick_cart/Views/AddRecord.dart';
+import 'package:quick_cart/Views/Home.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_cart/Providers/appProvider.dart';
 
 void main() {
+
   runApp(const MyApp());
 }
 
@@ -20,27 +21,25 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=> AppProvider())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Quick Cart',
         onGenerateRoute: (RouteSettings settings){
           Map<String,Widget> pages={
-            "splash":Splash(),
-            "login":Login(),
-            "signUp":SignUp()
+            "splash":Home(),
+            "login":AddRecord(),
           };
 
-          var pageToShow = pages[settings.name] ?? Splash();
+          var pageToShow = pages[settings.name] ?? Home();
 
           if (settings.name == "/") {
-            pageToShow = Splash();
+            pageToShow = Home();
           } else if (settings.name == "/login") {
-            pageToShow = Login();
-          } else if (settings.name == "/signUp") {
-            pageToShow = SignUp();
+            pageToShow = AddRecord();
           }
         return MaterialPageRoute(builder: (ctx)=>pageToShow,settings: settings );
 
         },
-        home: const Splash(),
+        home:   Home(),
       ),
     );
   }
